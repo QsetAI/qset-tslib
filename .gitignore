@@ -1,5 +1,62 @@
-dist
-
-# python unnecessary files
+# Byte-compiled / optimized / DLL files
 **/__pycache__/
 **/.ipynb_checkpoints/
+
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
+
+# Django stuff:
+*.log
+*.pot
+
+# Xlsx files
+app/data/boiling_plan/*.xlsx
+app/data/schedule_plan/*.xlsx
+app/data/schedule/*.xlsx
+app/data/sku_plan/*.xlsx
+app/data/stats/*.csv
+app/data/stats/*.xlsx
+app/data/tmp/*.csv
+app/data/tmp/*.xlsx
+
+# Pyc files
+app/**/*.pyc
