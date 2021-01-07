@@ -48,15 +48,5 @@ coverage.xml
 *.log
 *.pot
 
-# Xlsx files
-app/data/boiling_plan/*.xlsx
-app/data/schedule_plan/*.xlsx
-app/data/schedule/*.xlsx
-app/data/sku_plan/*.xlsx
-app/data/stats/*.csv
-app/data/stats/*.xlsx
-app/data/tmp/*.csv
-app/data/tmp/*.xlsx
-
 # Pyc files
 app/**/*.pyc
