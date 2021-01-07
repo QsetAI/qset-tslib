@@ -37,39 +37,6 @@ def abs(obj):
         return abs_(obj)
 
 
-min_ = min
-def min(df1, df2, *args, key=None):
-    if isinstance(df1, (pd.DataFrame, pd.Series)) and isinstance(df2, (pd.DataFrame, pd.Series)):
-        nan_mask = None
-        for df in [df1, df2]:
-            if not isinstance(df, pd.DataFrame):
-                continue
-            if nan_mask is None:
-                nan_mask = df.isnull()
-            else:
-                nan_mask = nan_mask | df1.isnull()
-        res = ifelse(df1 <= df2, df1, df2)
-
-        if nan_mask is not None:
-            res = res.where(~nan_mask)
-        return res
-    else:
-        if key:
-            return min_(df1, df2, *args, key=key)
-        else:
-            return min_(df1, df2, *args)
-
-
-max_ = max
-def max(df1, df2, *args, key=None):
-    if isinstance(df1, (pd.DataFrame, pd.Series)) and isinstance(df2, (pd.DataFrame, pd.Series)):
-        return -min(-df1, -df2)
-    else:
-        if key:
-            return max_(df1, df2, *args, key=key)
-        else:
-            return max_(df1, df2, *args, key=key)
-
 
 if __name__ == '__main__':
     print(abs(-1))

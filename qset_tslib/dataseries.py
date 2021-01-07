@@ -118,18 +118,6 @@ def zscore(df, window, min_value=-3., max_value=3., min_periods=2):
 
 # Basic ts functions
 
-def max_dd(ser):
-    """
-    :param ser: pandas.series () - actually window
-    :return: Returns drawdown for a window
-    Meaning: subsidiary function for ts_drawdown
-    """
-    cumulative = ser.cumsum()
-    max2here = cumulative.cummax()
-    dd2here = cumulative - max2here
-    return dd2here.min()
-
-
 
 def duration(series):
     df = pd.DataFrame(series)

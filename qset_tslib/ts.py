@@ -1,3 +1,29 @@
+def max_dd(ser):
+    """
+    :param ser: pandas.series () - actually window
+    :return: Returns drawdown for a window
+    Meaning: subsidiary function for ts_drawdown
+    """
+    cumulative = ser.cumsum()
+    max2here = cumulative.cummax()
+    dd2here = cumulative - max2here
+    return dd2here.min()
+
+
+def ts_drawdown(data, window=1, min_periods=0):
+    """
+    :param data: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
+    :param ndays: number of days
+    :param min_periods: minimal non-NaNs values in window to make a calculation.
+    The bigger min_periods is, the later is first non-NaN value calculated.
+    :return: rolling absolute drawdown. Values are zero or negative.
+    Example: for data
+    [1,2,5,4,3,2,3], ts_drawdown(data, ndays=3, min_periods=2) returns
+  [NaN,0,0,1,2,2,0]
+    """
+    return data.rolling(window=window, min_periods=min_periods).apply(max_dd)
+
+
 
 def ts_drawup(data, ndays=1, min_periods=0):
     """
@@ -161,18 +187,4 @@ def ts_corr(df1, df2=None, periods=None, min_periods=None, pairwise=False, nan_i
         corr_df = ifelse(abs(corr_df) > 1 + tol, constant(np.nan, corr_df), corr_df)
     return corr_df
 
-
-
-def ts_drawdown(data, window=1, min_periods=0):
-    """
-    :param data: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
-    :param ndays: number of days
-    :param min_periods: minimal non-NaNs values in window to make a calculation.
-    The bigger min_periods is, the later is first non-NaN value calculated.
-    :return: rolling absolute drawdown. Values are zero or negative.
-    Example: for data
-    [1,2,5,4,3,2,3], ts_drawdown(data, ndays=3, min_periods=2) returns
-  [NaN,0,0,1,2,2,0]
-    """
-    return data.rolling(window=window, min_periods=min_periods).apply(max_dd)
 
