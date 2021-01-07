@@ -188,3 +188,31 @@ def ts_corr(df1, df2=None, periods=None, min_periods=None, pairwise=False, nan_i
     return corr_df
 
 
+
+def zscore(df, window, min_value=-3., max_value=3., min_periods=2):
+    """ Zscore. """
+    res = (df - ts_mean(df, window, min_periods=min_periods)) / ts_std(df, window, min_periods=min_periods)
+    res = ifelse(res > max_value, max_value, res)
+    res = ifelse(res < min_value, min_value, res)
+    return res
+
+
+
+# this is per-instrument
+def rolling_rescale_1(df, interval=12 * 24):
+    """
+    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
+    :param interval:
+    :return:
+    """
+    av_position = ts_mean(abs(df), interval)  # average position over interval
+    norm_coeff = max(av_position, abs(df)).div(df.count(axis=1), axis=0)
+    return df.div(norm_coeff, axis=0)
+
+
+# this is altogether.
+def rolling_rescale_2(df, interval=12 * 24):
+    booksize = cs_sum(abs(df))  # booksize
+    av_booksize = ts_mean(booksize, interval)  # average booksize over interval
+    norm_coeff = max(av_booksize, booksize)
+    return df.div(norm_coeff, axis=0)

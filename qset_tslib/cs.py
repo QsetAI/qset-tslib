@@ -91,3 +91,107 @@ def cs_balance(alpha):
     res[alpha < 0] = 0.5 * norm(alpha_negative)
 
     return res
+
+
+
+def normalize(df):
+    """
+    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
+    :return: norm(neutralize(data))
+    """
+    return cs_norm(barsim.tools.neutralize(df))
+
+
+def trunc_normalize(df, max_w, tol=5E-3, max_iter=10):
+    """
+    :param max_iter: max number of iterations
+    :param tol: tolerance
+    :param df: normalized df
+    :param max_w: max allowed weight
+    """
+    df_out = normalize(df)
+
+    n_iter = 1
+    while df_out.abs().max(axis=0).max() > max_w + tol and n_iter <= max_iter:
+        df_out = ifelse(abs(df_out) > max_w, qset_tslib.math.sign(df_out) * max_w, df_out)
+        df_out = normalize(df_out)
+        n_iter += 1
+    return df_out
+
+def trunc_cs_balance(alpha, max_w):
+    # todo: avoid upscale for days with values close to 0
+
+    alpha_positive = alpha[alpha > 0]
+    alpha_negative = alpha[alpha < 0]
+
+    res = constant(np.nan, alpha_positive)
+    res[alpha > 0] = 0.5 * trunc_norm(alpha_positive, max_w)
+    res[alpha < 0] = 0.5 * trunc_norm(alpha_negative, max_w)
+
+    return res
+
+def threshold(df, threshold_type, value, side='top', inclusive=False):
+    """
+    :param df:
+    :param threshold_type:
+    :param value:
+    :param side: 'top' or 'bottom'
+    :return:
+    """
+    if threshold_type == 'abs':
+        compare_df = df
+    elif threshold_type == 'rel':
+        compare_df = cs_rank(df)
+    else:
+        raise Exception(f'Unknown threshold type: {threshold_type}')
+
+    if side == 'top':
+        if inclusive:
+            return compare_df >= value
+        else:
+            return compare_df > value
+    elif side == 'bottom':
+        if inclusive:
+            return compare_df <= value
+        else:
+            return compare_df < value
+    else:
+        raise Exception(f'Unknown side: {side}')
+
+
+
+def trunc_rescale(df, max_w, tol=5E-3, max_iter=10):
+    """
+    :param booksize: booksize
+    :param max_iter: max number of iterations
+    :param tol: tolerance
+    :param df: df
+    :param max_w: max allowed weight
+    """
+
+    df_out = norm(df)
+    n_iter = 1
+    while df_out.abs().max(axis=0).max() > max_w + tol and n_iter <= max_iter:
+        df_out = ifelse(abs(df_out) > max_w, barsim.math.sign(df_out) * max_w, df_out)
+        df_out = norm(df_out)
+        n_iter += 1
+    return df_out
+
+
+trunc_norm = trunc_rescale
+
+
+# def threshold(df, threshold_type, value):
+#     """
+#     :param df:
+#     :param threshold_type:
+#     :param value:
+#     :param side: 'top' or 'bottom'
+#     :return:
+#     """
+#     if threshold_type == 'abs':
+#         return df > value
+#     elif threshold_type == 'rel':
+#         return cs_rank(df) > value
+#     else:
+#         raise Exception('Unknown threshold type')

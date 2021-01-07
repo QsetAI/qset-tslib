@@ -15,6 +15,8 @@ def test_ifelse():
     print(ifelse(df1 < df2, df1, df2))
 
 
+def mask(df, condition):
+    return df.where(condition)
 
 
 def df_max(df1, df2):
@@ -36,6 +38,16 @@ def test_df_max_and_df_min():
     df2 = df1.sort_values(by=0, ascending=False).reset_index(drop=True)  # reversed df
     print(df_max(df1, df2))
     print(df_min(df1, df2))
+
+
+def agg(df, by=None, func=None, level=None, **kwargs):
+    return df.groupby(by=by, level=level, **kwargs).agg(func)
+
+
+def rank(df, a=0., b=1., axis=1):
+    """ A simplified version of pd.DataFrame.rank with specified delimiters. """
+    return df.rank(axis=axis, pct=True) * (b - a) + a
+
 
 
 if __name__ == '__main__':
