@@ -253,10 +253,6 @@ def valid(df):
     return np.sign(abs(df) + 1)
 
 
-def fill_dataframe(df, series):
-    df[:] = pd.concat([series] * df.shape[1], axis=1)
-    return df
-
 
 def comply_axes(target, source):
     return target.loc[source.index, source.columns]

@@ -3,6 +3,7 @@ import numpy as np
 from datetime import datetime, timedelta
 from functools import reduce
 
+
 def ifelse(cond, df, other=np.nan, **kwargs):
     return df.where(cond, other=other, **kwargs)
 
@@ -14,30 +15,19 @@ def test_ifelse():
     print(ifelse(df1 < df2, df1, df2))
 
 
-def constant(value, prototype):
-    """
-    :param value: float
-    :param prototype:
-    :return: constant matrix with the shape of the prototype
-    """
-    res = prototype.copy()
-    res[:] = value
-    return res
 
 
 def df_max(df1, df2):
     nan_mask = reduce(lambda df1, df2: df1 | df2, [df.isnull() for df in [df1, df2]])
     res = ifelse(df1 > df2, df1, df2)
-    if nan_mask is not None:
-        res = res.where(~nan_mask)
+    res = res.where(~nan_mask)
     return res
 
 
 def df_min(df1, df2):
     nan_mask = reduce(lambda df1, df2: df1 | df2, [df.isnull() for df in [df1, df2]])
     res = ifelse(df1 < df2, df1, df2)
-    if nan_mask is not None:
-        res = res.where(~nan_mask)
+    res = res.where(~nan_mask)
     return res
 
 
