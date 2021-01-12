@@ -1,5 +1,3 @@
-from qset_tslib.dataseries import ts_lag, ts_max, ts_min, ts_sum, constant, ts_diff, ifelse, ts_mean
-from qset_tslib.math import min, max
 import pandas as pd
 import numpy as np
 

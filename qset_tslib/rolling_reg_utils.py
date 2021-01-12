@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 from statsmodels.regression.quantile_regression import QuantReg
-from qset_tslib.dataseries import constant
 from sklearn.linear_model import Ridge, LinearRegression
 
 

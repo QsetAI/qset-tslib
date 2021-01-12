@@ -1,143 +1,90 @@
+from qset_tslib.basic import *
+from qset_tslib.math import *
+from qset_tslib.cpp.neutralize import cs_neutralize
 
-def cs_mean(df, as_series=False):
-    """
-    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
-    :return: cross-sectional mean
-    """
-    res = df.mean(axis=1)
+
+def cs_mean(df, as_series=False, *args, **kwargs):
+    res = df.mean(axis=1, *args, **kwargs)
     if not as_series:
-        res = fill_dataframe(df.copy_path(), res)
+        res = make_like(df, res)
     return res
 
 
-def cs_sum(df, as_series=False, skipna=True):
-    """
-    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
-    :return: cross-sectional mean
-    """
-    res = df.sum(axis=1, skipna=skipna)
+def cs_sum(df, as_series=False, skipna=True, *args, **kwargs):
+    res = df.sum(axis=1, skipna=skipna, *args, **kwargs)
     if not as_series:
-        res = fill_dataframe(df.copy_path(), res)
+        res = make_like(df, res)
     return res
 
 
-def cs_count(df, as_series=False):
-    """
-    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
-    :return: number of valid (not nan) datapoints in each moment of time
-    """
-    res = df.count(axis=1)
+def cs_count(df, as_series=False, *args, **kwargs):
+    res = df.count(axis=1, *args, **kwargs)
     if not as_series:
-        res = fill_dataframe(df.copy_path(), res)
+        res = make_like(df, res)
     return res
 
 
-def cs_norm(df, booksize=1.):
-    """ Norm dataframe. """
-    return df.divide(df.abs().sum(axis=1, min_count=1), axis=0).multiply(booksize, axis='index')
+def cs_norm(df, factor=1., max_w=None, max_iter=10, tol=1e-2):
+    df = df.divide(df.abs().sum(axis=1, min_count=1), axis=0).multiply(factor, axis='index')
+
+    if max_w is not None:
+        for _ in range(max_iter):
+            df = ifelse(abs(df) > max_w, sign(df) * max_w, df)
+
+            if df.abs().max(axis=0).max() < max_w + tol:
+                break
+    return df
 
 
-norm = cs_norm
-
-def cs_max(df, as_series=False):
-    """
-    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
-    :return: cross-sectional maximum
-    """
-    res = df.max(axis=1)
+def cs_max(df, as_series=False, *args, **kwargs):
+    res = df.max(axis=1, *args, **kwargs)
     if not as_series:
-        res = fill_dataframe(df.copy_path(), res)
+        res = make_like(df, res)
     return res
 
 
-def cs_min(df, as_series=False):
-    """
-    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
-    :return: cross-sectional minimum
-    """
-    res = df.min(axis=1)
+def cs_min(df, as_series=False, *args, **kwargs):
+    res = df.min(axis=1, *args, **kwargs)
     if not as_series:
-        res = fill_dataframe(df.copy_path(), res)
+        res = make_like(df, res)
     return res
 
 
-def cs_quantile(df, q=0.5, as_series=False):
-    """
-    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
-    :return: Rolling cross-sectional quantile, linear approximation
-    """
-    res = df.quantile(q, axis=1)
+def cs_quantile(df, q=0.5, as_series=False, *args, **kwargs):
+    res = df.quantile(q, axis=1, *args, **kwargs)
     if not as_series:
-        res = fill_dataframe(df.copy_path(), res)
+        res = make_like(df, res)
     return res
 
 
 def cs_rank(data):
-    """
-    :param data: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
-    :return:
-    """
     return (data.rank(axis=1) - 1.).div(data.count(axis=1) - 1., axis=0)
 
 
-def cs_balance(alpha):
-    # todo: avoid upscale for days with values close to 0
+def cs_balance(alpha, max_w=None):
 
     alpha_positive = alpha[alpha > 0]
     alpha_negative = alpha[alpha < 0]
 
-    res = constant(np.nan, alpha_positive)
-    res[alpha > 0] = 0.5 * norm(alpha_positive)
-    res[alpha < 0] = 0.5 * norm(alpha_negative)
+    res = make_like(alpha_positive)
+    res[alpha > 0] = 0.5 * cs_norm(alpha_positive, max_w=max_w)
+    res[alpha < 0] = 0.5 * cs_norm(alpha_negative, max_w=max_w)
 
     return res
 
 
+def cs_normalize(df, max_w=None, tol=1e-2, max_iter=10):
+    df = cs_norm(cs_neutralize(df))
 
-def normalize(df):
-    """
-    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
-    :return: norm(neutralize(data))
-    """
-    return cs_norm(barsim.tools.neutralize(df))
+    if max_w is not None:
+        for _ in range(max_iter):
+            df = ifelse(abs(df) > max_w, sign(df) * max_w, df)
+
+            if df.abs().max(axis=0).max() < max_w + tol:
+                break
 
 
-def trunc_normalize(df, max_w, tol=5E-3, max_iter=10):
-    """
-    :param max_iter: max number of iterations
-    :param tol: tolerance
-    :param df: normalized df
-    :param max_w: max allowed weight
-    """
-    df_out = normalize(df)
-
-    n_iter = 1
-    while df_out.abs().max(axis=0).max() > max_w + tol and n_iter <= max_iter:
-        df_out = ifelse(abs(df_out) > max_w, qset_tslib.math.sign(df_out) * max_w, df_out)
-        df_out = normalize(df_out)
-        n_iter += 1
-    return df_out
-
-def trunc_cs_balance(alpha, max_w):
-    # todo: avoid upscale for days with values close to 0
-
-    alpha_positive = alpha[alpha > 0]
-    alpha_negative = alpha[alpha < 0]
-
-    res = constant(np.nan, alpha_positive)
-    res[alpha > 0] = 0.5 * trunc_norm(alpha_positive, max_w)
-    res[alpha < 0] = 0.5 * trunc_norm(alpha_negative, max_w)
-
-    return res
-
-def threshold(df, threshold_type, value, side='top', inclusive=False):
-    """
-    :param df:
-    :param threshold_type:
-    :param value:
-    :param side: 'top' or 'bottom'
-    :return:
-    """
+def cs_threshold(df, value, threshold_type='rel', side='top', inclusive=False):
     if threshold_type == 'abs':
         compare_df = df
     elif threshold_type == 'rel':
@@ -159,39 +106,16 @@ def threshold(df, threshold_type, value, side='top', inclusive=False):
         raise Exception(f'Unknown side: {side}')
 
 
+def test_cs():
+    df = pd.DataFrame([np.arange(-1, 4, 1)] * 5)
+    print(df)
+    for key in ['mean', 'max', 'min', 'sum', 'count', 'norm', 'balance', 'rank', 'neutralize']:
+        func = globals()[f'cs_{key}']
+        print(key)
+        print(func(df))
 
-def trunc_rescale(df, max_w, tol=5E-3, max_iter=10):
-    """
-    :param booksize: booksize
-    :param max_iter: max number of iterations
-    :param tol: tolerance
-    :param df: df
-    :param max_w: max allowed weight
-    """
-
-    df_out = norm(df)
-    n_iter = 1
-    while df_out.abs().max(axis=0).max() > max_w + tol and n_iter <= max_iter:
-        df_out = ifelse(abs(df_out) > max_w, barsim.math.sign(df_out) * max_w, df_out)
-        df_out = norm(df_out)
-        n_iter += 1
-    return df_out
+    print(cs_threshold(df, 0.5))
 
 
-trunc_norm = trunc_rescale
-
-
-# def threshold(df, threshold_type, value):
-#     """
-#     :param df:
-#     :param threshold_type:
-#     :param value:
-#     :param side: 'top' or 'bottom'
-#     :return:
-#     """
-#     if threshold_type == 'abs':
-#         return df > value
-#     elif threshold_type == 'rel':
-#         return cs_rank(df) > value
-#     else:
-#         raise Exception('Unknown threshold type')
+if __name__ == '__main__':
+    test_cs()

@@ -1,4 +1,3 @@
-from qset_tslib.dataseries import *
 
 
 # Bollinger Bands

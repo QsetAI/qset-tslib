@@ -1,6 +1,3 @@
-from qset_tslib.dataseries import *
-from qset_tslib.fast_run import ts_argmax, ts_argmin, ts_decay
-from qset_tslib.math import min, max, abs
 
 import pandas as pd
 import numpy as np
