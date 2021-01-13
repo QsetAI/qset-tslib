@@ -1,6 +1,6 @@
 import pandas as pd
 
-from qset_tslib.cneutralize import _neutralize
+from qset_tslib.cneutralize import neutralize as _neutralize
 
 
 def cs_neutralize(df, group=None, norm_std=False):

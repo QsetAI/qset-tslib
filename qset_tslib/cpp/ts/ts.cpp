@@ -1,4 +1,4 @@
-#include "fast_run.h"
+#include "ts.h"
 
 /*Linearly weighted decay*/
 std::vector<double> run_decay(const std::vector<double>& v, const std::vector<double>& w, const int min_valid, const bool exclude_nans) {

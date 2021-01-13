@@ -57,7 +57,7 @@ cpdef np.ndarray[double] neutralize_row(np.ndarray[DTYPE_t, ndim=1] v, list isfi
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cpdef np.ndarray[double] _neutralize(np.ndarray v, np.ndarray group, bool norm_std=False):
+cpdef np.ndarray[double] neutralize(np.ndarray v, np.ndarray group, bool norm_std=False):
     cdef int T = v.shape[0]
     cdef int n = v.shape[1]
 
