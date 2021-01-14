@@ -1,55 +1,26 @@
 import pandas as pd
 import numpy as np
 
-from qset_tslib.dataseries import mask
 
-
-def ts_ls_slope(x, y, window, min_periods=2, add_notna_mask=False, ddof=1):
-    """ Calculates running slope of simple linear regression between windows of numeric vectors x and y, where y depends on x.
-
-    Parameters
-    ----------
-    x: pd.DataFrame or pd.Series
-    y: pd.DataFrame or pd.Series
-    window: int
-        window size
-    min_periods: int
-        Minimum number of observations in window required to have a value (otherwise result is NA). For a window that is specified by an offset, this will default to 1.
-    Returns
-    -------
-    pd.DataFrame
+def ts_ls_slope(df_x, df_y, window, min_periods=2, add_notna_mask=False, ddof=1):
+    """ Calculates running slope of simple linear regression between windows of dataframes df_x and df_y, where df_y depends on df_x.
     """
 
-    mp = min_periods
     if add_notna_mask:
-        _mask = x.notnull() & y.notnull()
-        _x = mask(x, _mask)
-        _y = mask(y, _mask)
-    else:
-        _x = x
-        _y = y
+        _mask = df_x.notnull() & df_y.notnull()
+        df_x = df_x.where(_mask)
+        df_y = df_y.where(_mask)
 
-    cov_xy = ((_x * _y).rolling(window, min_periods=mp).mean() -
-              _x.rolling(window, min_periods=mp).mean() * _y.rolling(window, min_periods=mp).mean())
-    var_x = _x.rolling(window, min_periods=mp).var(ddof=ddof)
+    cov_xy = ((df_x * df_y).rolling(window, min_periods=min_periods).mean() -
+              df_x.rolling(window, min_periods=min_periods).mean() * df_y.rolling(window, min_periods=min_periods).mean())
+    var_x = df_x.rolling(window, min_periods=min_periods).var(ddof=ddof)
     return cov_xy / var_x
 
 
-def ts_ls_slope_by_timeline(df, window=252, min_periods=2, add_notna_mask=False, ddof=1):
-    """ Calculates rolling_ls_slope for every columns in dataframe as y and with range(len(df)) as x.
-
-    Parameters
-    ----------
-    df: pd.DataFrame
-    window: int
-        window size
-    min_periods: int
-        Minimum number of observations in window required to have a value (otherwise result is NA). For a window that is specified by an offset, this will default to 1.
-    Returns
-    -------
-    pd.DataFrame
+def ts_ls_slope_by_timeline(df, *args, **kwargs):
+    """ Calculates rolling_ls_slope for every columns in dataframe as df_y and with range(len(df)) as df_x.
     """
     n_cols = len(df.columns)
-    x = pd.DataFrame(np.repeat([np.arange(len(df))], n_cols, axis=0).T, index=df.index, columns=df.columns)
-    return ts_ls_slope(x, df, window=window, min_periods=min_periods, add_notna_mask=add_notna_mask, ddof=ddof)
-
+    df_x = pd.DataFrame(np.repeat([np.arange(len(df))], n_cols, axis=0).T, index=df.index, columns=df.columns)
+    df_y = df
+    return ts_ls_slope(df_x, df_y, *args, **kwargs)

@@ -1075,7 +1075,6 @@ int __pyx_module_is_main_qset_tslib__cpp__ts__cts = 0;
 
 /* Implementation of 'qset_tslib.cpp.ts.cts' */
 static PyObject *__pyx_builtin_range;
-static const char __pyx_k_w[] = "w";
 static const char __pyx_k_arr[] = "arr";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
@@ -1083,42 +1082,34 @@ static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_window[] = "window";
 static const char __pyx_k_extra_df[] = "extra_df";
-static const char __pyx_k_max_value[] = "max_value";
 static const char __pyx_k_mean_zero[] = "mean_zero";
-static const char __pyx_k_min_value[] = "min_value";
 static const char __pyx_k_min_periods[] = "min_periods";
-static const char __pyx_k_exclude_nans[] = "exclude_nans";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static PyObject *__pyx_n_s_arr;
 static PyObject *__pyx_n_s_cline_in_traceback;
-static PyObject *__pyx_n_s_exclude_nans;
 static PyObject *__pyx_n_s_extra_df;
 static PyObject *__pyx_n_s_main;
-static PyObject *__pyx_n_s_max_value;
 static PyObject *__pyx_n_s_mean_zero;
 static PyObject *__pyx_n_s_min_periods;
-static PyObject *__pyx_n_s_min_value;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_n_s_w;
 static PyObject *__pyx_n_s_window;
 static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_run_mean(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_periods); /* proto */
 static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_2run_var(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_periods, PyObject *__pyx_v_mean_zero, PyObject *__pyx_v_extra_df); /* proto */
 static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_4run_sd(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_periods, PyObject *__pyx_v_mean_zero, PyObject *__pyx_v_extra_df); /* proto */
-static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_6run_rank(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_value, PyObject *__pyx_v_max_value, PyObject *__pyx_v_min_periods); /* proto */
-static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_8run_argmin(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_periods); /* proto */
-static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_10run_decay(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_w, PyObject *__pyx_v_min_periods, PyObject *__pyx_v_exclude_nans); /* proto */
+static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_6run_min(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_periods); /* proto */
+static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_8run_max(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_periods); /* proto */
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_2;
 /* Late includes */
 
-/* "qset_tslib/cpp/ts/cts.pyx":11
- * from cts cimport run_decay as crun_decay
+/* "qset_tslib/cpp/ts/cts.pyx":14
+ * # from cts cimport run_decay as _run_decay
  * 
  * def run_mean(arr, window, min_periods=1):             # <<<<<<<<<<<<<<
- *     return crun_mean(arr, window, min_periods)
+ *     return _run_mean(arr, window, min_periods)
  * 
  */
 
@@ -1160,7 +1151,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_1run_mean(PyObject *__pyx_s
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_window)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("run_mean", 0, 2, 3, 1); __PYX_ERR(0, 11, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("run_mean", 0, 2, 3, 1); __PYX_ERR(0, 14, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -1170,7 +1161,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_1run_mean(PyObject *__pyx_s
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_mean") < 0)) __PYX_ERR(0, 11, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_mean") < 0)) __PYX_ERR(0, 14, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1188,7 +1179,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_1run_mean(PyObject *__pyx_s
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("run_mean", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 11, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("run_mean", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 14, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_mean", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1213,28 +1204,28 @@ static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_run_mean(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("run_mean", 0);
 
-  /* "qset_tslib/cpp/ts/cts.pyx":12
+  /* "qset_tslib/cpp/ts/cts.pyx":15
  * 
  * def run_mean(arr, window, min_periods=1):
- *     return crun_mean(arr, window, min_periods)             # <<<<<<<<<<<<<<
+ *     return _run_mean(arr, window, min_periods)             # <<<<<<<<<<<<<<
  * 
  * def run_var(arr, window, min_periods=2, mean_zero=False, extra_df=0):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_from_py_double(__pyx_v_arr); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_window); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_min_periods); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L1_error)
-  __pyx_t_4 = __pyx_convert_vector_to_py_double(run_mean(__pyx_t_1, __pyx_t_2, __pyx_t_3)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_from_py_double(__pyx_v_arr); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_window); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_min_periods); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_vector_to_py_double(run_mean(__pyx_t_1, __pyx_t_2, __pyx_t_3)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "qset_tslib/cpp/ts/cts.pyx":11
- * from cts cimport run_decay as crun_decay
+  /* "qset_tslib/cpp/ts/cts.pyx":14
+ * # from cts cimport run_decay as _run_decay
  * 
  * def run_mean(arr, window, min_periods=1):             # <<<<<<<<<<<<<<
- *     return crun_mean(arr, window, min_periods)
+ *     return _run_mean(arr, window, min_periods)
  * 
  */
 
@@ -1249,11 +1240,11 @@ static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_run_mean(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "qset_tslib/cpp/ts/cts.pyx":14
- *     return crun_mean(arr, window, min_periods)
+/* "qset_tslib/cpp/ts/cts.pyx":17
+ *     return _run_mean(arr, window, min_periods)
  * 
  * def run_var(arr, window, min_periods=2, mean_zero=False, extra_df=0):             # <<<<<<<<<<<<<<
- *     return crun_var(arr, window, min_periods, mean_zero, extra_df)
+ *     return _run_var(arr, window, min_periods, mean_zero, extra_df)
  * 
  */
 
@@ -1303,7 +1294,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_3run_var(PyObject *__pyx_se
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_window)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("run_var", 0, 2, 5, 1); __PYX_ERR(0, 14, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("run_var", 0, 2, 5, 1); __PYX_ERR(0, 17, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -1325,7 +1316,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_3run_var(PyObject *__pyx_se
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_var") < 0)) __PYX_ERR(0, 14, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_var") < 0)) __PYX_ERR(0, 17, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1349,7 +1340,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_3run_var(PyObject *__pyx_se
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("run_var", 0, 2, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 14, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("run_var", 0, 2, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 17, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_var", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1376,30 +1367,30 @@ static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_2run_var(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("run_var", 0);
 
-  /* "qset_tslib/cpp/ts/cts.pyx":15
+  /* "qset_tslib/cpp/ts/cts.pyx":18
  * 
  * def run_var(arr, window, min_periods=2, mean_zero=False, extra_df=0):
- *     return crun_var(arr, window, min_periods, mean_zero, extra_df)             # <<<<<<<<<<<<<<
+ *     return _run_var(arr, window, min_periods, mean_zero, extra_df)             # <<<<<<<<<<<<<<
  * 
  * def run_sd(arr, window, min_periods=2, mean_zero=False, extra_df=0):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_from_py_double(__pyx_v_arr); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_window); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_min_periods); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_mean_zero); if (unlikely((__pyx_t_4 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_v_extra_df); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L1_error)
-  __pyx_t_6 = __pyx_convert_vector_to_py_double(run_var(__pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_from_py_double(__pyx_v_arr); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_window); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_min_periods); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_mean_zero); if (unlikely((__pyx_t_4 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_v_extra_df); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_6 = __pyx_convert_vector_to_py_double(run_var(__pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_r = __pyx_t_6;
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "qset_tslib/cpp/ts/cts.pyx":14
- *     return crun_mean(arr, window, min_periods)
+  /* "qset_tslib/cpp/ts/cts.pyx":17
+ *     return _run_mean(arr, window, min_periods)
  * 
  * def run_var(arr, window, min_periods=2, mean_zero=False, extra_df=0):             # <<<<<<<<<<<<<<
- *     return crun_var(arr, window, min_periods, mean_zero, extra_df)
+ *     return _run_var(arr, window, min_periods, mean_zero, extra_df)
  * 
  */
 
@@ -1414,11 +1405,11 @@ static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_2run_var(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "qset_tslib/cpp/ts/cts.pyx":17
- *     return crun_var(arr, window, min_periods, mean_zero, extra_df)
+/* "qset_tslib/cpp/ts/cts.pyx":20
+ *     return _run_var(arr, window, min_periods, mean_zero, extra_df)
  * 
  * def run_sd(arr, window, min_periods=2, mean_zero=False, extra_df=0):             # <<<<<<<<<<<<<<
- *     return crun_sd(arr, window, min_periods, mean_zero, extra_df)
+ *     return _run_sd(arr, window, min_periods, mean_zero, extra_df)
  * 
  */
 
@@ -1468,7 +1459,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_5run_sd(PyObject *__pyx_sel
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_window)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("run_sd", 0, 2, 5, 1); __PYX_ERR(0, 17, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("run_sd", 0, 2, 5, 1); __PYX_ERR(0, 20, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -1490,7 +1481,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_5run_sd(PyObject *__pyx_sel
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_sd") < 0)) __PYX_ERR(0, 17, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_sd") < 0)) __PYX_ERR(0, 20, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1514,7 +1505,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_5run_sd(PyObject *__pyx_sel
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("run_sd", 0, 2, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 17, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("run_sd", 0, 2, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_sd", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1541,30 +1532,30 @@ static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_4run_sd(CYTHON_UNUSED PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("run_sd", 0);
 
-  /* "qset_tslib/cpp/ts/cts.pyx":18
+  /* "qset_tslib/cpp/ts/cts.pyx":21
  * 
  * def run_sd(arr, window, min_periods=2, mean_zero=False, extra_df=0):
- *     return crun_sd(arr, window, min_periods, mean_zero, extra_df)             # <<<<<<<<<<<<<<
+ *     return _run_sd(arr, window, min_periods, mean_zero, extra_df)             # <<<<<<<<<<<<<<
  * 
- * def run_rank(arr, window, min_value, max_value, min_periods=1):
+ * def run_min(arr, window, min_periods=1):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_from_py_double(__pyx_v_arr); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_window); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_min_periods); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_mean_zero); if (unlikely((__pyx_t_4 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_v_extra_df); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
-  __pyx_t_6 = __pyx_convert_vector_to_py_double(run_sd(__pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_from_py_double(__pyx_v_arr); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_window); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_min_periods); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_mean_zero); if (unlikely((__pyx_t_4 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_v_extra_df); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_6 = __pyx_convert_vector_to_py_double(run_sd(__pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_r = __pyx_t_6;
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "qset_tslib/cpp/ts/cts.pyx":17
- *     return crun_var(arr, window, min_periods, mean_zero, extra_df)
+  /* "qset_tslib/cpp/ts/cts.pyx":20
+ *     return _run_var(arr, window, min_periods, mean_zero, extra_df)
  * 
  * def run_sd(arr, window, min_periods=2, mean_zero=False, extra_df=0):             # <<<<<<<<<<<<<<
- *     return crun_sd(arr, window, min_periods, mean_zero, extra_df)
+ *     return _run_sd(arr, window, min_periods, mean_zero, extra_df)
  * 
  */
 
@@ -1579,178 +1570,17 @@ static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_4run_sd(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "qset_tslib/cpp/ts/cts.pyx":20
- *     return crun_sd(arr, window, min_periods, mean_zero, extra_df)
- * 
- * def run_rank(arr, window, min_value, max_value, min_periods=1):             # <<<<<<<<<<<<<<
- *     return crun_rank(arr, window, min_value, max_value, min_periods)
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_7run_rank(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_7run_rank(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_arr = 0;
-  PyObject *__pyx_v_window = 0;
-  PyObject *__pyx_v_min_value = 0;
-  PyObject *__pyx_v_max_value = 0;
-  PyObject *__pyx_v_min_periods = 0;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("run_rank (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_arr,&__pyx_n_s_window,&__pyx_n_s_min_value,&__pyx_n_s_max_value,&__pyx_n_s_min_periods,0};
-    PyObject* values[5] = {0,0,0,0,0};
-    values[4] = ((PyObject *)__pyx_int_1);
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
-        CYTHON_FALLTHROUGH;
-        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
-        CYTHON_FALLTHROUGH;
-        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_arr)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_window)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("run_rank", 0, 4, 5, 1); __PYX_ERR(0, 20, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_min_value)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("run_rank", 0, 4, 5, 2); __PYX_ERR(0, 20, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  3:
-        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_max_value)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("run_rank", 0, 4, 5, 3); __PYX_ERR(0, 20, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  4:
-        if (kw_args > 0) {
-          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_min_periods);
-          if (value) { values[4] = value; kw_args--; }
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_rank") < 0)) __PYX_ERR(0, 20, __pyx_L3_error)
-      }
-    } else {
-      switch (PyTuple_GET_SIZE(__pyx_args)) {
-        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
-        CYTHON_FALLTHROUGH;
-        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
-        values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-    }
-    __pyx_v_arr = values[0];
-    __pyx_v_window = values[1];
-    __pyx_v_min_value = values[2];
-    __pyx_v_max_value = values[3];
-    __pyx_v_min_periods = values[4];
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("run_rank", 0, 4, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_rank", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_10qset_tslib_3cpp_2ts_3cts_6run_rank(__pyx_self, __pyx_v_arr, __pyx_v_window, __pyx_v_min_value, __pyx_v_max_value, __pyx_v_min_periods);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_6run_rank(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_value, PyObject *__pyx_v_max_value, PyObject *__pyx_v_min_periods) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  std::vector<double>  __pyx_t_1;
-  int __pyx_t_2;
-  double __pyx_t_3;
-  double __pyx_t_4;
-  int __pyx_t_5;
-  PyObject *__pyx_t_6 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("run_rank", 0);
-
-  /* "qset_tslib/cpp/ts/cts.pyx":21
- * 
- * def run_rank(arr, window, min_value, max_value, min_periods=1):
- *     return crun_rank(arr, window, min_value, max_value, min_periods)             # <<<<<<<<<<<<<<
- * 
- * def run_argmin(arr, window, min_periods=1):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_from_py_double(__pyx_v_arr); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_window); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_v_min_value); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_max_value); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_v_min_periods); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_t_6 = __pyx_convert_vector_to_py_double(run_rank(__pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 21, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_r = __pyx_t_6;
-  __pyx_t_6 = 0;
-  goto __pyx_L0;
-
-  /* "qset_tslib/cpp/ts/cts.pyx":20
- *     return crun_sd(arr, window, min_periods, mean_zero, extra_df)
- * 
- * def run_rank(arr, window, min_value, max_value, min_periods=1):             # <<<<<<<<<<<<<<
- *     return crun_rank(arr, window, min_value, max_value, min_periods)
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_rank", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "qset_tslib/cpp/ts/cts.pyx":23
- *     return crun_rank(arr, window, min_value, max_value, min_periods)
+ *     return _run_sd(arr, window, min_periods, mean_zero, extra_df)
  * 
- * def run_argmin(arr, window, min_periods=1):             # <<<<<<<<<<<<<<
- *     return crun_argmin(arr, window, min_periods)
+ * def run_min(arr, window, min_periods=1):             # <<<<<<<<<<<<<<
+ *     return _run_min(arr, window, min_periods)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_9run_argmin(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_9run_argmin(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_7run_min(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_7run_min(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_arr = 0;
   PyObject *__pyx_v_window = 0;
   PyObject *__pyx_v_min_periods = 0;
@@ -1759,7 +1589,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_9run_argmin(PyObject *__pyx
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("run_argmin (wrapper)", 0);
+  __Pyx_RefNannySetupContext("run_min (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_arr,&__pyx_n_s_window,&__pyx_n_s_min_periods,0};
     PyObject* values[3] = {0,0,0};
@@ -1786,7 +1616,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_9run_argmin(PyObject *__pyx
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_window)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("run_argmin", 0, 2, 3, 1); __PYX_ERR(0, 23, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("run_min", 0, 2, 3, 1); __PYX_ERR(0, 23, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -1796,7 +1626,7 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_9run_argmin(PyObject *__pyx
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_argmin") < 0)) __PYX_ERR(0, 23, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_min") < 0)) __PYX_ERR(0, 23, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1814,20 +1644,20 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_9run_argmin(PyObject *__pyx
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("run_argmin", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 23, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("run_min", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 23, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_argmin", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_min", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_10qset_tslib_3cpp_2ts_3cts_8run_argmin(__pyx_self, __pyx_v_arr, __pyx_v_window, __pyx_v_min_periods);
+  __pyx_r = __pyx_pf_10qset_tslib_3cpp_2ts_3cts_6run_min(__pyx_self, __pyx_v_arr, __pyx_v_window, __pyx_v_min_periods);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_8run_argmin(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_periods) {
+static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_6run_min(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_periods) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   std::vector<double>  __pyx_t_1;
@@ -1837,37 +1667,37 @@ static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_8run_argmin(CYTHON_UNUSED P
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("run_argmin", 0);
+  __Pyx_RefNannySetupContext("run_min", 0);
 
   /* "qset_tslib/cpp/ts/cts.pyx":24
  * 
- * def run_argmin(arr, window, min_periods=1):
- *     return crun_argmin(arr, window, min_periods)             # <<<<<<<<<<<<<<
+ * def run_min(arr, window, min_periods=1):
+ *     return _run_min(arr, window, min_periods)             # <<<<<<<<<<<<<<
  * 
- * def run_decay(arr, w, min_periods=1, exclude_nans=False):
+ * def run_max(arr, window, min_periods=1):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __pyx_convert_vector_from_py_double(__pyx_v_arr); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
   __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_window); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
   __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_min_periods); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
-  __pyx_t_4 = __pyx_convert_vector_to_py_double(run_argmin(__pyx_t_1, __pyx_t_2, __pyx_t_3)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_vector_to_py_double(run_min(__pyx_t_1, __pyx_t_2, __pyx_t_3)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
   /* "qset_tslib/cpp/ts/cts.pyx":23
- *     return crun_rank(arr, window, min_value, max_value, min_periods)
+ *     return _run_sd(arr, window, min_periods, mean_zero, extra_df)
  * 
- * def run_argmin(arr, window, min_periods=1):             # <<<<<<<<<<<<<<
- *     return crun_argmin(arr, window, min_periods)
+ * def run_min(arr, window, min_periods=1):             # <<<<<<<<<<<<<<
+ *     return _run_min(arr, window, min_periods)
  * 
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_argmin", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_min", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1876,36 +1706,33 @@ static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_8run_argmin(CYTHON_UNUSED P
 }
 
 /* "qset_tslib/cpp/ts/cts.pyx":26
- *     return crun_argmin(arr, window, min_periods)
+ *     return _run_min(arr, window, min_periods)
  * 
- * def run_decay(arr, w, min_periods=1, exclude_nans=False):             # <<<<<<<<<<<<<<
- *     return crun_decay(arr, w, min_periods, exclude_nans)
+ * def run_max(arr, window, min_periods=1):             # <<<<<<<<<<<<<<
+ *     return _run_max(arr, window, min_periods)
+ * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_11run_decay(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_11run_decay(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_9run_max(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_9run_max(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_arr = 0;
-  PyObject *__pyx_v_w = 0;
+  PyObject *__pyx_v_window = 0;
   PyObject *__pyx_v_min_periods = 0;
-  PyObject *__pyx_v_exclude_nans = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("run_decay (wrapper)", 0);
+  __Pyx_RefNannySetupContext("run_max (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_arr,&__pyx_n_s_w,&__pyx_n_s_min_periods,&__pyx_n_s_exclude_nans,0};
-    PyObject* values[4] = {0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_arr,&__pyx_n_s_window,&__pyx_n_s_min_periods,0};
+    PyObject* values[3] = {0,0,0};
     values[2] = ((PyObject *)__pyx_int_1);
-    values[3] = ((PyObject *)Py_False);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
-        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
-        CYTHON_FALLTHROUGH;
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
@@ -1922,9 +1749,9 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_11run_decay(PyObject *__pyx
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_w)) != 0)) kw_args--;
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_window)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("run_decay", 0, 2, 4, 1); __PYX_ERR(0, 26, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("run_max", 0, 2, 3, 1); __PYX_ERR(0, 26, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -1932,20 +1759,12 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_11run_decay(PyObject *__pyx
           PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_min_periods);
           if (value) { values[2] = value; kw_args--; }
         }
-        CYTHON_FALLTHROUGH;
-        case  3:
-        if (kw_args > 0) {
-          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_exclude_nans);
-          if (value) { values[3] = value; kw_args--; }
-        }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_decay") < 0)) __PYX_ERR(0, 26, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run_max") < 0)) __PYX_ERR(0, 26, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
-        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
-        CYTHON_FALLTHROUGH;
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
@@ -1955,65 +1774,65 @@ static PyObject *__pyx_pw_10qset_tslib_3cpp_2ts_3cts_11run_decay(PyObject *__pyx
       }
     }
     __pyx_v_arr = values[0];
-    __pyx_v_w = values[1];
+    __pyx_v_window = values[1];
     __pyx_v_min_periods = values[2];
-    __pyx_v_exclude_nans = values[3];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("run_decay", 0, 2, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 26, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("run_max", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 26, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_decay", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_max", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_10qset_tslib_3cpp_2ts_3cts_10run_decay(__pyx_self, __pyx_v_arr, __pyx_v_w, __pyx_v_min_periods, __pyx_v_exclude_nans);
+  __pyx_r = __pyx_pf_10qset_tslib_3cpp_2ts_3cts_8run_max(__pyx_self, __pyx_v_arr, __pyx_v_window, __pyx_v_min_periods);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_10run_decay(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_w, PyObject *__pyx_v_min_periods, PyObject *__pyx_v_exclude_nans) {
+static PyObject *__pyx_pf_10qset_tslib_3cpp_2ts_3cts_8run_max(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_arr, PyObject *__pyx_v_window, PyObject *__pyx_v_min_periods) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   std::vector<double>  __pyx_t_1;
-  std::vector<double>  __pyx_t_2;
+  int __pyx_t_2;
   int __pyx_t_3;
-  bool __pyx_t_4;
-  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_4 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("run_decay", 0);
+  __Pyx_RefNannySetupContext("run_max", 0);
 
   /* "qset_tslib/cpp/ts/cts.pyx":27
  * 
- * def run_decay(arr, w, min_periods=1, exclude_nans=False):
- *     return crun_decay(arr, w, min_periods, exclude_nans)             # <<<<<<<<<<<<<<
+ * def run_max(arr, window, min_periods=1):
+ *     return _run_max(arr, window, min_periods)             # <<<<<<<<<<<<<<
+ * 
+ * 
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __pyx_convert_vector_from_py_double(__pyx_v_arr); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
-  __pyx_t_2 = __pyx_convert_vector_from_py_double(__pyx_v_w); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_window); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
   __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_min_periods); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_exclude_nans); if (unlikely((__pyx_t_4 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
-  __pyx_t_5 = __pyx_convert_vector_to_py_double(run_decay(__pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 27, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_r = __pyx_t_5;
-  __pyx_t_5 = 0;
+  __pyx_t_4 = __pyx_convert_vector_to_py_double(run_max(__pyx_t_1, __pyx_t_2, __pyx_t_3)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
   goto __pyx_L0;
 
   /* "qset_tslib/cpp/ts/cts.pyx":26
- *     return crun_argmin(arr, window, min_periods)
+ *     return _run_min(arr, window, min_periods)
  * 
- * def run_decay(arr, w, min_periods=1, exclude_nans=False):             # <<<<<<<<<<<<<<
- *     return crun_decay(arr, w, min_periods, exclude_nans)
+ * def run_max(arr, window, min_periods=1):             # <<<<<<<<<<<<<<
+ *     return _run_max(arr, window, min_periods)
+ * 
  */
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_decay", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("qset_tslib.cpp.ts.cts.run_max", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2212,9 +2031,8 @@ static PyMethodDef __pyx_methods[] = {
   {"run_mean", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10qset_tslib_3cpp_2ts_3cts_1run_mean, METH_VARARGS|METH_KEYWORDS, 0},
   {"run_var", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10qset_tslib_3cpp_2ts_3cts_3run_var, METH_VARARGS|METH_KEYWORDS, 0},
   {"run_sd", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10qset_tslib_3cpp_2ts_3cts_5run_sd, METH_VARARGS|METH_KEYWORDS, 0},
-  {"run_rank", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10qset_tslib_3cpp_2ts_3cts_7run_rank, METH_VARARGS|METH_KEYWORDS, 0},
-  {"run_argmin", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10qset_tslib_3cpp_2ts_3cts_9run_argmin, METH_VARARGS|METH_KEYWORDS, 0},
-  {"run_decay", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10qset_tslib_3cpp_2ts_3cts_11run_decay, METH_VARARGS|METH_KEYWORDS, 0},
+  {"run_min", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10qset_tslib_3cpp_2ts_3cts_7run_min, METH_VARARGS|METH_KEYWORDS, 0},
+  {"run_max", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10qset_tslib_3cpp_2ts_3cts_9run_max, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 
@@ -2262,17 +2080,13 @@ static struct PyModuleDef __pyx_moduledef = {
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_arr, __pyx_k_arr, sizeof(__pyx_k_arr), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
-  {&__pyx_n_s_exclude_nans, __pyx_k_exclude_nans, sizeof(__pyx_k_exclude_nans), 0, 0, 1, 1},
   {&__pyx_n_s_extra_df, __pyx_k_extra_df, sizeof(__pyx_k_extra_df), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
-  {&__pyx_n_s_max_value, __pyx_k_max_value, sizeof(__pyx_k_max_value), 0, 0, 1, 1},
   {&__pyx_n_s_mean_zero, __pyx_k_mean_zero, sizeof(__pyx_k_mean_zero), 0, 0, 1, 1},
   {&__pyx_n_s_min_periods, __pyx_k_min_periods, sizeof(__pyx_k_min_periods), 0, 0, 1, 1},
-  {&__pyx_n_s_min_value, __pyx_k_min_value, sizeof(__pyx_k_min_value), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
-  {&__pyx_n_s_w, __pyx_k_w, sizeof(__pyx_k_w), 0, 0, 1, 1},
   {&__pyx_n_s_window, __pyx_k_window, sizeof(__pyx_k_window), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
