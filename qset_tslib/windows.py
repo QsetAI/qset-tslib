@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 
 from datetime import datetime, timedelta
+import qset_tslib as tslib
+from qset_tslib.utils import cast_dateoffset
 
 
 def fixed_window_transform(df, window_size, transform_func='first'):
@@ -39,7 +41,7 @@ def ts_recalc_at_days_of_month(df, days_of_month, keep='first'):
     res = res[res.day_of_month.isin(days_of_month)]
     res.drop(['date', 'day_of_month'], inplace=True, axis=1)
     res = res.reindex(df.index)
-    res = ts_backfill(res, len(df))
+    res = tslib.ts_backfill(res, len(df))
     df.pop('date')
     return res
 
@@ -68,16 +70,17 @@ def ts_recalc_at_weekdays(df, calc_weekdays, keep='first'):
     res = res[res.weekday.isin(calc_weekdays)]
     res.drop(['date', 'weekday'], inplace=True, axis=1)
     res = res.reindex(df.index)
-    res = ts_backfill(res, len(df))
+    res = tslib.ts_backfill(res, len(df))
     df.pop('date')
     return res
+
 
 def rescale(df, freq_obj, func='first', closed='left', backfill=False):
     grouper = pd.Grouper(freq=cast_dateoffset(freq_obj), closed=closed)
     res = df.groupby(grouper).agg(func)
 
     if backfill:
-        res = ts_backfill(res)
+        res = tslib.ts_backfill(res)
 
     return res
 

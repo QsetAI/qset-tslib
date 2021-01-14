@@ -1,10 +1,9 @@
-
-def ignore_small_changes(df, eps, enhance=True):
+def filter_small_changes(df, eps, enhanced=True):
     changes = df.diff()
-    big_changes = abs(changes) > eps
-    res = df[big_changes].ffill()
-    if enhance:
-        big_changes = big_changes | (abs(res - df) > eps)
-        res = df[big_changes].ffill()
+    large_changes = abs(changes) > eps
+    res = df[large_changes].ffill()
+    if enhanced:
+        large_changes = large_changes | (abs(res - df) > eps)
+        res = df[large_changes].ffill()
     return res
 

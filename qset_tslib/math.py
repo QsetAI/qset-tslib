@@ -3,19 +3,19 @@ import pandas as pd
 
 from functools import reduce
 
-from qset_tslib.basic import ifelse
+import qset_tslib as tslib
 
 
 def max(df1, df2):
     nan_mask = reduce(lambda df1, df2: df1 | df2, [df.isnull() for df in [df1, df2]])
-    res = ifelse(df1 > df2, df1, df2)
+    res = tslib.ifelse(df1 > df2, df1, df2)
     res = res.where(~nan_mask)
     return res
 
 
 def min(df1, df2):
     nan_mask = reduce(lambda df1, df2: df1 | df2, [df.isnull() for df in [df1, df2]])
-    res = ifelse(df1 < df2, df1, df2)
+    res = tslib.ifelse(df1 < df2, df1, df2)
     res = res.where(~nan_mask)
     return res
 

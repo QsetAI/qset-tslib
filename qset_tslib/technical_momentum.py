@@ -1,12 +1,13 @@
 import pandas as pd
 import numpy as np
 
+import qset_tslib as tslib
 
 def money_flow_index(high, low, close, volume, n=14):
 
-    up_or_down = ifelse(ts_diff(close) > 0,
-                              constant(1, close),
-                              constant(-1, close))
+    up_or_down = tslib.ifelse(tslib.ts_diff(close) > 0,
+                              tslib.constant(1, close),
+                              tslib.constant(-1, close))
 
     # 1 typical price
     tp = (high + low + close) / 3.0
@@ -14,10 +15,10 @@ def money_flow_index(high, low, close, volume, n=14):
     # 2 money flow
     mf = tp * volume
 
-    positive_mf = ifelse(up_or_down > 0, mf, constant(0, mf))
-    negative_mf = ifelse(up_or_down < 0, mf, constant(0, mf))
+    positive_mf = tslib.ifelse(up_or_down > 0, mf, tslib.constant(0, mf))
+    negative_mf = tslib.ifelse(up_or_down < 0, mf, tslib.constant(0, mf))
     # 3 positive and negative money flow with n periods
-    mfr = ts_sum(positive_mf, n)/ts_sum(negative_mf, n)
+    mfr = tslib.ts_sum(positive_mf, n) / tslib.ts_sum(negative_mf, n)
     mfi = 100 - 100 / (1 + mfr)
     mfi = mfi.replace([np.inf, -np.inf], np.nan)
     return mfi
@@ -35,7 +36,7 @@ def true_strength_index(close, r=25, s=13, fillna=False):
     Returns:
         pandas.Series: New feature generated.
     """
-    m = ts_diff(close)
+    m = tslib.ts_diff(close)
     m1 = m.ewm(r).mean().ewm(s).mean()
     m2 = abs(m).ewm(r).mean().ewm(s).mean()
     tsi = m1 / m2
@@ -70,15 +71,15 @@ def ultimate_oscillator(high, low, close, s=7, m=14, l=28, ws=4.0, wm=2.0, wl=1.
     Returns:
         pandas.Series: New feature generated.
     """
-    min_l_or_pc = min(ts_lag(close,1), low)
-    max_h_or_pc = max(ts_lag(close,1), high)
+    min_l_or_pc = min(tslib.ts_lag(close,1), low)
+    max_h_or_pc = max(tslib.ts_lag(close,1), high)
 
     bp = close - min_l_or_pc
     tr = max_h_or_pc - min_l_or_pc
 
-    avg_s = ts_sum(bp, s) / ts_sum(tr, s)
-    avg_m = ts_sum(bp, m) / ts_sum(tr, m)
-    avg_l = ts_sum(bp, l) / ts_sum(tr, l)
+    avg_s = tslib.ts_sum(bp, s) / tslib.ts_sum(tr, s)
+    avg_m = tslib.ts_sum(bp, m) / tslib.ts_sum(tr, m)
+    avg_l = tslib.ts_sum(bp, l) / tslib.ts_sum(tr, l)
 
     uo = 100.0 * ((ws * avg_s) + (wm * avg_m) + (wl * avg_l)) / (ws + wm + wl)
     uo = uo.replace([np.inf, -np.inf], np.nan)
@@ -87,8 +88,8 @@ def ultimate_oscillator(high, low, close, s=7, m=14, l=28, ws=4.0, wm=2.0, wl=1.
 
 def stoch(high, low, close, n=14):
 
-    smin = ts_min(low, n)
-    smax = ts_max(high,n)
+    smin = tslib.ts_min(low, n)
+    smax = tslib.ts_max(high,n)
     stoch_k = 100 * (close - smin) / (smax - smin)
 
     stoch_k = stoch_k.replace([np.inf, -np.inf], np.nan)
@@ -110,7 +111,7 @@ def stoch_signal(high, low, close, n=14, d_n=3, fillna=False):
         pandas.Series: New feature generated.
     """
     stoch_k = stoch(high, low, close, n)
-    stoch_d = ts_mean(stoch_k, d_n)
+    stoch_d = tslib.ts_mean(stoch_k, d_n)
 
     stoch_d = stoch_d.replace([np.inf, -np.inf], np.nan)
     return stoch_d
@@ -144,8 +145,8 @@ def williams_r(high, low, close, lbp=14, fillna=False):
         pandas.Series: New feature generated.
     """
 
-    hh = ts_max(high, lbp)
-    ll = ts_min(low, lbp)
+    hh = tslib.ts_max(high, lbp)
+    ll = tslib.ts_min(low, lbp)
 
     wr = -100 * (hh - close) / (hh - ll)
 
@@ -178,7 +179,7 @@ def awesome_oscillator(high, low, s=5, l=34, fillna=False):
     """
 
     mp = 0.5 * (high + low)
-    ao = ts_mean(mp, s) - ts_mean(mp, l)
+    ao = tslib.ts_mean(mp, s) - tslib.ts_mean(mp, l)
 
     ao = ao.replace([np.inf, -np.inf], np.nan)
     return ao
