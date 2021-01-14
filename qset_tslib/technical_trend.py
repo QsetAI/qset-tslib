@@ -4,6 +4,7 @@ import numpy as np
 
 import qset_tslib as tslib
 
+
 def macd(close, n_fast=12, n_slow=26):
     """Moving Average Convergence Divergence (MACD)
     Is a trend-following momentum indicator that shows the relationship between
@@ -23,7 +24,7 @@ def macd(close, n_fast=12, n_slow=26):
     return macd
 
 
-def macd_signal(close, n_fast=12, n_slow=26, n_sign=9, fillna=False):
+def macd_signal(close, n_fast=12, n_slow=26, n_sign=9):
     """Moving Average Convergence Divergence (MACD Signal)
     Shows EMA of MACD.
     https://en.wikipedia.org/wiki/MACD
@@ -32,7 +33,6 @@ def macd_signal(close, n_fast=12, n_slow=26, n_sign=9, fillna=False):
         n_fast(int): n period short-term.
         n_slow(int): n period long-term.
         n_sign(int): n period to signal.
-        fillna(bool): if True, fill nan values.
     Returns:
         pandas.Series: New feature generated.
     """
@@ -202,7 +202,7 @@ def dpo(close, n=20):
     return dpo
 
 
-def kst(close, r1=10, r2=15, r3=20, r4=30, n1=10, n2=10, n3=10, n4=15, fillna=False):
+def kst(close, r1=10, r2=15, r3=20, r4=30, n1=10, n2=10, n3=10, n4=15):
     """KST Oscillator (KST)
     It is useful to identify major stock market cycle junctures because its
     formula is weighed to be more greatly influenced by the longer and more
@@ -232,7 +232,7 @@ def kst(close, r1=10, r2=15, r3=20, r4=30, n1=10, n2=10, n3=10, n4=15, fillna=Fa
     return kst
 
 
-def kst_sig(close, r1=10, r2=15, r3=20, r4=30, n1=10, n2=10, n3=10, n4=15, nsig=9, fillna=False):
+def kst_sig(close, r1=10, r2=15, r3=20, r4=30, n1=10, n2=10, n3=10, n4=15, nsig=9):
     """KST Oscillator (KST Signal)
     It is useful to identify major stock market cycle junctures because its
     formula is weighed to be more greatly influenced by the longer and more
@@ -264,7 +264,7 @@ def kst_sig(close, r1=10, r2=15, r3=20, r4=30, n1=10, n2=10, n3=10, n4=15, nsig=
     return kst_sig
 
 
-def ichimoku_a(high, low, n1=9, n2=26, visual=False, fillna=False):
+def ichimoku_a(high, low, n1=9, n2=26, visual=False):
     """Ichimoku Kinkō Hyō (Ichimoku)
     It identifies the trend and look for potential signals within that trend.
     http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud
@@ -288,7 +288,7 @@ def ichimoku_a(high, low, n1=9, n2=26, visual=False, fillna=False):
     spana = spana.replace([np.inf, -np.inf], np.nan)
     return spana
 
-def aroon_up(close, n=25, fillna=False):
+def aroon_up(close, n=25):
     """Aroon Indicator (AI)
     Identify when trends are likely to change direction (uptrend).
     Aroon Up - ((N - Days Since N-day High) / N) x 100
@@ -305,7 +305,7 @@ def aroon_up(close, n=25, fillna=False):
     return aroon_up
 
 
-def aroon_down(close, n=25, fillna=False):
+def aroon_down(close, n=25):
     """Aroon Indicator (AI)
     Identify when trends are likely to change direction (downtrend).
     Aroon Down - ((N - Days Since N-day Low) / N) x 100

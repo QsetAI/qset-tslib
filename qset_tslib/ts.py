@@ -1,18 +1,23 @@
-def max_dd(ser):
+import qset_tslib as tslib
+import pandas as pd
+import numpy as np
+
+
+def max_dd(s):
     """
-    :param ser: pandas.series () - actually window
+    :param s: pandas.Series - actually window
     :return: Returns drawdown for a window
     Meaning: subsidiary function for ts_drawdown
     """
-    cumulative = ser.cumsum()
+    cumulative = s.cumsum()
     max2here = cumulative.cummax()
     dd2here = cumulative - max2here
     return dd2here.min()
 
 
-def ts_drawdown(data, window=1, min_periods=0):
+def ts_drawdown(df, window=1, min_periods=0):
     """
-    :param data: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
+    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
     :param ndays: number of days
     :param min_periods: minimal non-NaNs values in window to make a calculation.
     The bigger min_periods is, the later is first non-NaN value calculated.
@@ -21,8 +26,7 @@ def ts_drawdown(data, window=1, min_periods=0):
     [1,2,5,4,3,2,3], ts_drawdown(data, ndays=3, min_periods=2) returns
   [NaN,0,0,1,2,2,0]
     """
-    return data.rolling(window=window, min_periods=min_periods).apply(max_dd)
-
+    return df.rolling(window=window, min_periods=min_periods).apply(max_dd)
 
 
 def ts_drawup(data, ndays=1, min_periods=0):
@@ -140,6 +144,7 @@ def ts_diff(df, periods=1):
     """
     return df.diff(periods)
 
+
 def ts_median(df, periods, min_periods=1):
     """
     :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
@@ -167,8 +172,13 @@ def ts_backfill(df, limit=None):
     return df.fillna(method='ffill', limit=limit)
 
 
-def ts_duration(regime_df):
-    return regime_df.apply(duration)
+def ts_regime(df):
+    return df.apply(tslib.regime)
+
+
+def ts_regime_duration(df):
+    return df.apply(tslib.regime_duration)
+
 
 def ts_std(df, periods, min_periods=1):
     # return (data.rank(axis=1)
@@ -176,43 +186,34 @@ def ts_std(df, periods, min_periods=1):
 
 
 def ts_parkinson_vol(high, low, periods):
-    return qset_tslib.math.log(high / low).rolling(periods).mean() * np.sqrt(np.pi / 8)
+    return tslib.log(high / low).rolling(periods).mean() * np.sqrt(np.pi / 8)
 
 
 def ts_corr(df1, df2=None, periods=None, min_periods=None, pairwise=False, nan_incorrect=True):
     corr_df = df1.rolling(window=periods, min_periods=min_periods).corr(df2, pairwise=pairwise)
     if nan_incorrect:
-        corr_df = ifelse(corr_df.isin([np.inf, -np.inf]), constant(np.nan, corr_df), corr_df)
+        corr_df = tslib.ifelse(corr_df.isin([np.inf, -np.inf]), tslib.make_like(corr_df, np.nan), corr_df)
         tol = 1E-5
-        corr_df = ifelse(abs(corr_df) > 1 + tol, constant(np.nan, corr_df), corr_df)
+        corr_df = tslib.ifelse(abs(corr_df) > 1 + tol, tslib.make_like(corr_df, np.nan), corr_df)
     return corr_df
 
 
-
-def zscore(df, window, min_value=-3., max_value=3., min_periods=2):
+def ts_zscore(df, window, min_value=-3., max_value=3., min_periods=2):
     """ Zscore. """
     res = (df - ts_mean(df, window, min_periods=min_periods)) / ts_std(df, window, min_periods=min_periods)
-    res = ifelse(res > max_value, max_value, res)
-    res = ifelse(res < min_value, min_value, res)
+    res = tslib.ifelse(res > max_value, max_value, res)
+    res = tslib.ifelse(res < min_value, min_value, res)
     return res
 
 
-
-# this is per-instrument
-def rolling_rescale_1(df, interval=12 * 24):
-    """
-    :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)
-    :param interval:
-    :return:
-    """
-    av_position = ts_mean(abs(df), interval)  # average position over interval
-    norm_coeff = max(av_position, abs(df)).div(df.count(axis=1), axis=0)
+def ts_rescale(df, window=12 * 24):
+    average_position = ts_mean(abs(df), window)
+    norm_coeff = max(average_position, abs(df)).div(df.count(axis=1), axis=0)
     return df.div(norm_coeff, axis=0)
 
 
-# this is altogether.
-def rolling_rescale_2(df, interval=12 * 24):
-    booksize = cs_sum(abs(df))  # booksize
-    av_booksize = ts_mean(booksize, interval)  # average booksize over interval
+def tcs_rescale(df, window=12 * 24):
+    booksize = tslib.cs_sum(abs(df))  # booksize
+    av_booksize = ts_mean(booksize, window)  # average booksize over interval
     norm_coeff = max(av_booksize, booksize)
     return df.div(norm_coeff, axis=0)

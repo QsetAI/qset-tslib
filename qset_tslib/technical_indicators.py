@@ -36,12 +36,12 @@ def ss(close, high, low, periods=1):
 def adx(close, high, low, periods=1):
     up_move = tslib.ts_diff(high)
     down_move = - tslib.ts_diff(low)
-    plus_dm = tslib.ifelse(tslib.op_and(up_move > down_move, up_move > 0), up_move, 0)
-    minus_dm = tslib.ifelse(tslib.op_and(up_move < down_move, down_move > 0), down_move, 0)
+    plus_dm = tslib.ifelse((up_move > down_move) & (up_move > 0), up_move, 0)
+    minus_dm = tslib.ifelse((up_move < down_move) &  (down_move > 0), down_move, 0)
 
     # True Range
-    tr = tslib.op_max(high - low, abs(high - tslib.ts_lag(close)))
-    tr = tslib.op_max(tr, abs(low - tslib.ts_lag(close)))
+    tr = tslib.max(high - low, abs(high - tslib.ts_lag(close)))
+    tr = tslib.max(tr, abs(low - tslib.ts_lag(close)))
     atr = tslib.ts_mean(tr, periods)
 
     plus_di = 100 * tslib.ts_mean(plus_dm, periods) / atr
@@ -63,7 +63,7 @@ def adi(close, low, high, vol, n=288, min_periods=1):
     return tslib.ts_sum(clv * vol, n, min_periods)
 
 
-def adi_signal(close, low, high,vol, n=288, short_sm=288*3, long_sm = 288*10, min_periods=1):
+def adi_signal(close, low, high, vol, n=288, short_sm=288 * 3, long_sm=288 * 10, min_periods=1):
     acc = adi(close, low, high, vol, n, min_periods)
     signal = tslib.ts_exp_decay(acc, short_sm) - tslib.ts_exp_decay(acc, long_sm)
     return signal
@@ -98,6 +98,5 @@ def vpt(close, vol, n=288, min_periods=1):
 
 
 def vpt_on_imbalance(close, bv, sv, n=288, min_periods=1):
-    vpt_on_imb = tslib.ts_sum(tslib.ifelse((bv-sv) * tslib.ts_returns(close,1) > 0, (bv - sv) * tslib.ts_returns(close,1), tslib.constant(0, close)),
-                        n, min_periods)
+    vpt_on_imb = tslib.ts_sum(tslib.ifelse((bv - sv) * tslib.ts_returns(close, 1) > 0, (bv - sv) * tslib.ts_returns(close, 1), tslib.make_like(close, 0)), n, min_periods)
     return vpt_on_imb

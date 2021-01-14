@@ -3,11 +3,12 @@ import numpy as np
 
 import qset_tslib as tslib
 
+
 def money_flow_index(high, low, close, volume, n=14):
 
     up_or_down = tslib.ifelse(tslib.ts_diff(close) > 0,
-                              tslib.constant(1, close),
-                              tslib.constant(-1, close))
+                              tslib.make_like(close, 1),
+                              tslib.make_like(close, -1))
 
     # 1 typical price
     tp = (high + low + close) / 3.0
@@ -15,8 +16,8 @@ def money_flow_index(high, low, close, volume, n=14):
     # 2 money flow
     mf = tp * volume
 
-    positive_mf = tslib.ifelse(up_or_down > 0, mf, tslib.constant(0, mf))
-    negative_mf = tslib.ifelse(up_or_down < 0, mf, tslib.constant(0, mf))
+    positive_mf = tslib.ifelse(up_or_down > 0, mf, tslib.make_like(mf, 0))
+    negative_mf = tslib.ifelse(up_or_down < 0, mf, tslib.make_like(mf, 0))
     # 3 positive and negative money flow with n periods
     mfr = tslib.ts_sum(positive_mf, n) / tslib.ts_sum(negative_mf, n)
     mfi = 100 - 100 / (1 + mfr)
@@ -150,11 +151,14 @@ def williams_r(high, low, close, lbp=14, fillna=False):
 
     wr = -100 * (hh - close) / (hh - ll)
 
-    wr = wr.replace([np.inf, -np.inf], np.nan).fillna(-50)
+    wr = wr.replace([np.inf, -np.inf], np.nan)
+
+    if fillna:
+        wr = wr.fillna(-50)
     return wr
 
 
-def awesome_oscillator(high, low, s=5, l=34, fillna=False):
+def awesome_oscillator(high, low, s=5, l=34):
     """Awesome Oscillator
     From: https://www.tradingview.com/wiki/Awesome_Oscillator_(AO)
     The Awesome Oscillator is an indicator used to measure market momentum. AO calculates the difference of a
@@ -173,7 +177,6 @@ def awesome_oscillator(high, low, s=5, l=34, fillna=False):
         low(pandas.Series): dataset 'Low' column.
         s(int): short period
         l(int): long period
-        fillna(bool): if True, fill nan values with -50.
     Returns:
         pandas.Series: New feature generated.
     """
@@ -182,4 +185,5 @@ def awesome_oscillator(high, low, s=5, l=34, fillna=False):
     ao = tslib.ts_mean(mp, s) - tslib.ts_mean(mp, l)
 
     ao = ao.replace([np.inf, -np.inf], np.nan)
+
     return ao
