@@ -162,7 +162,7 @@ def ts_quantile(df, periods, min_periods=1, q=0.5):
     """
     return df.rolling(periods, min_periods=min_periods).quantile(q)
 
-
+# todo: rename
 def ts_backfill(df, limit=None):
     """
     :param df: data, pandas.DataFrame(data loaded with data manager/obtained with opertaions)

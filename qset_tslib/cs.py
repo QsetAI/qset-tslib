@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import qset_tslib as tslib
-
+from qset_tslib.cython.neutralize import cs_neutralize
 
 def cs_mean(df, as_series=False, *args, **kwargs):
     res = df.mean(axis=1, *args, **kwargs)
