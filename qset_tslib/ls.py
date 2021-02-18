@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from statsmodels.regression.quantile_regression import QuantReg
+from sklearn.linear_model import Ridge, LinearRegression
 
 
 def ts_ls_slope(df_x, df_y, window, min_periods=2, add_notna_mask=False, ddof=1):
@@ -25,10 +27,6 @@ def ts_ls_slope_by_timeline(df, *args, **kwargs):
     df_y = df
     return ts_ls_slope(df_x, df_y, *args, **kwargs)
 
-import numpy as np
-import pandas as pd
-from statsmodels.regression.quantile_regression import QuantReg
-from sklearn.linear_model import Ridge, LinearRegression
 
 
 class RollingBetaCalc:
