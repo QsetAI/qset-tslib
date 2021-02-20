@@ -51,5 +51,5 @@ def test_max_min():
     print(min(df1, df2))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_max_min()

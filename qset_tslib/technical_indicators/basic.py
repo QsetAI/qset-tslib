@@ -35,9 +35,9 @@ def ss(close, high, low, periods=1):
 # Average directional movement index, Positive/Negative directional indicators
 def adx(close, high, low, periods=1):
     up_move = tslib.ts_diff(high)
-    down_move = - tslib.ts_diff(low)
+    down_move = -tslib.ts_diff(low)
     plus_dm = tslib.ifelse((up_move > down_move) & (up_move > 0), up_move, 0)
-    minus_dm = tslib.ifelse((up_move < down_move) &  (down_move > 0), down_move, 0)
+    minus_dm = tslib.ifelse((up_move < down_move) & (down_move > 0), down_move, 0)
 
     # True Range
     tr = tslib.max(high - low, abs(high - tslib.ts_lag(close)))
@@ -63,7 +63,9 @@ def adi(close, low, high, vol, n=288, min_periods=1):
     return tslib.ts_sum(clv * vol, n, min_periods)
 
 
-def adi_signal(close, low, high, vol, n=288, short_sm=288 * 3, long_sm=288 * 10, min_periods=1):
+def adi_signal(
+    close, low, high, vol, n=288, short_sm=288 * 3, long_sm=288 * 10, min_periods=1
+):
     acc = adi(close, low, high, vol, n, min_periods)
     signal = tslib.ts_exp_decay(acc, short_sm) - tslib.ts_exp_decay(acc, long_sm)
     return signal
@@ -74,7 +76,9 @@ def chaikin_mf(close, low, high, vol, n=288, min_periods=1):
     return acc / tslib.ts_sum(vol, n, min_periods)
 
 
-def chaikin_mf_signal(close, low, high, vol, n=288, short_sm=288*3, long_sm = 288*10, min_periods=1):
+def chaikin_mf_signal(
+    close, low, high, vol, n=288, short_sm=288 * 3, long_sm=288 * 10, min_periods=1
+):
     chk = chaikin_mf(close, low, high, vol, n, min_periods)
     signal = tslib.ts_exp_decay(chk, short_sm) - tslib.ts_exp_decay(chk, long_sm)
     return signal
@@ -86,7 +90,7 @@ def force_index(close, vol, n=288, min_periods=1):
 
 
 def ease_of_movement(high, low, vol, n=288, dist_lag=1, min_periods=1):
-    dist_moved = ((high + low) / 2 - tslib.ts_lag(high + low, dist_lag)/2)
+    dist_moved = (high + low) / 2 - tslib.ts_lag(high + low, dist_lag) / 2
     box_ratio = vol / (high - low)
     emv = dist_moved / box_ratio
     return tslib.ts_mean(emv, n, min_periods=min_periods)
@@ -98,5 +102,13 @@ def vpt(close, vol, n=288, min_periods=1):
 
 
 def vpt_on_imbalance(close, bv, sv, n=288, min_periods=1):
-    vpt_on_imb = tslib.ts_sum(tslib.ifelse((bv - sv) * tslib.ts_returns(close, 1) > 0, (bv - sv) * tslib.ts_returns(close, 1), tslib.make_like(close, 0)), n, min_periods)
+    vpt_on_imb = tslib.ts_sum(
+        tslib.ifelse(
+            (bv - sv) * tslib.ts_returns(close, 1) > 0,
+            (bv - sv) * tslib.ts_returns(close, 1),
+            tslib.make_like(close, 0),
+        ),
+        n,
+        min_periods,
+    )
     return vpt_on_imb

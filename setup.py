@@ -24,31 +24,48 @@ class sdist(_sdist):
     def run(self):
         # Make sure the compiled Cython files in the distribution are up-to-date
         from Cython.Build import cythonize
-        cythonize(['qset_tslib/cython/neutralize/cneutralize.pyx'])
-        cythonize(['qset_tslib/cpp/ts/cts.pyx'])
+
+        cythonize(["qset_tslib/cython/neutralize/cneutralize.pyx"])
+        cythonize(["qset_tslib/cpp/ts/cts.pyx"])
         _sdist.run(self)
 
 
-cmdclass['sdist'] = sdist
+cmdclass["sdist"] = sdist
 
 if use_cython:
     ext_modules += [
-        Extension('qset_tslib.cython.neutralize.cneutralize', ['qset_tslib/cython/neutralize/cneutralize.pyx'], language='c++'),
-        Extension('qset_tslib.cpp.ts.cts', ['qset_tslib/cpp/ts/cts.pyx', 'qset_tslib/cpp/ts/ts.cpp'], language='c++')
+        Extension(
+            "qset_tslib.cython.neutralize.cneutralize",
+            ["qset_tslib/cython/neutralize/cneutralize.pyx"],
+            language="c++",
+        ),
+        Extension(
+            "qset_tslib.cpp.ts.cts",
+            ["qset_tslib/cpp/ts/cts.pyx", "qset_tslib/cpp/ts/ts.cpp"],
+            language="c++",
+        ),
     ]
-    cmdclass.update({'build_ext': build_ext})
+    cmdclass.update({"build_ext": build_ext})
 else:
     ext_modules += [
-        Extension('qset_tslib.cython.neutralize.cneutralize', ["qset_tslib/cpp/neutralize/cneutralize.cpp"], language='c++'),
-        Extension('qset_tslib.cpp.ts.cts', ['qset_tslib/cpp/ts/ts.cpp'], language='c++')
+        Extension(
+            "qset_tslib.cython.neutralize.cneutralize",
+            ["qset_tslib/cpp/neutralize/cneutralize.cpp"],
+            language="c++",
+        ),
+        Extension(
+            "qset_tslib.cpp.ts.cts", ["qset_tslib/cpp/ts/ts.cpp"], language="c++"
+        ),
     ]
 
-setup(name='qset_tslib',
-      version='1.0.0',
-      description='Qset Fintech Utils Library',
-      packages=find_packages(),
-      cmdclass=cmdclass,
-      ext_modules=ext_modules,
-      install_requires=['joblib', 'h5py', 'empyrical', 'anyconfig'],
-      include_dirs=[np.get_include()],
-      zip_safe=False)
+setup(
+    name="qset_tslib",
+    version="1.0.0",
+    description="Qset Fintech Utils Library",
+    packages=find_packages(),
+    cmdclass=cmdclass,
+    ext_modules=ext_modules,
+    install_requires=["joblib", "h5py", "empyrical", "anyconfig"],
+    include_dirs=[np.get_include()],
+    zip_safe=False,
+)

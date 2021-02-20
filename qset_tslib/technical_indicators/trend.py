@@ -1,4 +1,3 @@
-
 import pandas as pd
 import numpy as np
 
@@ -288,6 +287,7 @@ def ichimoku_a(high, low, n1=9, n2=26, visual=False):
     spana = spana.replace([np.inf, -np.inf], np.nan)
     return spana
 
+
 def aroon_up(close, n=25):
     """Aroon Indicator (AI)
     Identify when trends are likely to change direction (uptrend).
@@ -300,7 +300,7 @@ def aroon_up(close, n=25):
     Returns:
         pandas.Series: New feature generated.
     """
-    aroon_up = (tslib.ts_argmax(close, n) + 1) / n *100
+    aroon_up = (tslib.ts_argmax(close, n) + 1) / n * 100
     aroon_up = aroon_up.replace([np.inf, -np.inf], np.nan)
     return aroon_up
 

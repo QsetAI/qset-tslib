@@ -17,7 +17,7 @@ import logging
 try:
     from .cython.neutralize.cneutralize import *
 except:
-    logging.warning('Could not find cneutralize module. Use setup.py to compile it')
+    logging.warning("Could not find cneutralize module. Use setup.py to compile it")
 
 # todo: del
 # try:

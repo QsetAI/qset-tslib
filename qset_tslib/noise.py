@@ -6,4 +6,3 @@ def filter_small_changes(df, eps, enhanced=True):
         large_changes = large_changes | (abs(res - df) > eps)
         res = df[large_changes].ffill()
     return res
-

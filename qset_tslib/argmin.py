@@ -16,5 +16,5 @@ def test_argmin():
     print(argmin(arr, last=True))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_argmin()

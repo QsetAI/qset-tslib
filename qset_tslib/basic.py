@@ -53,7 +53,7 @@ def test_filter_columns():
     print(filter_columns(df, [2, 3]))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_ifelse()
     test_make_like()
     test_filter_columns()

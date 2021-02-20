@@ -7,7 +7,7 @@ def HHI(returns, lookback=252 * 1, freq=21):
     hhi_values = []
     for i in np.arange(lookback, returns.shape[0], freq):
         hhi_index.append(returns.index[i])
-        cur_rets = returns.iloc[i - lookback:i]
+        cur_rets = returns.iloc[i - lookback : i]
 
         total_rets = cur_rets.sum(axis=1) / cur_rets.shape[1]
         U, s, V = np.linalg.svd(cur_rets, full_matrices=True)
@@ -24,5 +24,6 @@ def HHI(returns, lookback=252 * 1, freq=21):
         c = c ** 2
         hhi_values.append(1 / c.sum())
     return pd.DataFrame(hhi_values, index=hhi_index)
+
 
 # todo: test

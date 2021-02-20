@@ -9,4 +9,8 @@ def cs_neutralize(df, group=None, norm_std=False):
         if norm_std:
             df = df.divide(df.std(axis=1), axis=0)
         return df
-    return pd.DataFrame(_neutralize(df.values, group.values, norm_std=norm_std), index=df.index, columns=df.columns)
+    return pd.DataFrame(
+        _neutralize(df.values, group.values, norm_std=norm_std),
+        index=df.index,
+        columns=df.columns,
+    )

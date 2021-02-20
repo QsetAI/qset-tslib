@@ -19,9 +19,12 @@ def TSNE(returns, n_components=2, perplexity=0, random_state=0):
     rets_cor = filter_b.where(returns - filter_b < 0, returns)
     rets_cor = filter_t.where(rets_cor - filter_t > 0, returns)
 
-    C = manifold.TSNE(n_components=n_components, perplexity=perplexity, random_state=random_state)
+    C = manifold.TSNE(
+        n_components=n_components, perplexity=perplexity, random_state=random_state
+    )
     coords = C.fit_transform(rets_cor.values.T)
-    coords = pd.DataFrame(coords, index=rets_cor.columns, columns=['x', 'y'])
+    coords = pd.DataFrame(coords, index=rets_cor.columns, columns=["x", "y"])
     return coords
+
 
 # todo: test

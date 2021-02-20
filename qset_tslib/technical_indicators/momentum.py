@@ -6,9 +6,9 @@ import qset_tslib as tslib
 
 def money_flow_index(high, low, close, volume, n=14):
 
-    up_or_down = tslib.ifelse(tslib.ts_diff(close) > 0,
-                              tslib.make_like(close, 1),
-                              tslib.make_like(close, -1))
+    up_or_down = tslib.ifelse(
+        tslib.ts_diff(close) > 0, tslib.make_like(close, 1), tslib.make_like(close, -1)
+    )
 
     # 1 typical price
     tp = (high + low + close) / 3.0
@@ -72,8 +72,8 @@ def ultimate_oscillator(high, low, close, s=7, m=14, l=28, ws=4.0, wm=2.0, wl=1.
     Returns:
         pandas.Series: New feature generated.
     """
-    min_l_or_pc = min(tslib.ts_lag(close,1), low)
-    max_h_or_pc = max(tslib.ts_lag(close,1), high)
+    min_l_or_pc = min(tslib.ts_lag(close, 1), low)
+    max_h_or_pc = max(tslib.ts_lag(close, 1), high)
 
     bp = close - min_l_or_pc
     tr = max_h_or_pc - min_l_or_pc
@@ -90,7 +90,7 @@ def ultimate_oscillator(high, low, close, s=7, m=14, l=28, ws=4.0, wm=2.0, wl=1.
 def stoch(high, low, close, n=14):
 
     smin = tslib.ts_min(low, n)
-    smax = tslib.ts_max(high,n)
+    smax = tslib.ts_max(high, n)
     stoch_k = 100 * (close - smin) / (smax - smin)
 
     stoch_k = stoch_k.replace([np.inf, -np.inf], np.nan)
