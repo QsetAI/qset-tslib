@@ -131,10 +131,10 @@ def calc_stats(returns, turnover=None, booksize=1.0, days_in_a_year=365):
     turnover = turnover if turnover is not None else pd.Series(0.0, index=index)
 
     stats = {}
-    stats["beg"] = index[0]
+    stats["begin"] = index[0]
     stats["end"] = index[-1]
 
-    for key in ["beg", "end"]:
+    for key in ["begin", "end"]:
         try:
             stats[key] = stats[key].to_pydatetime()
         except:
