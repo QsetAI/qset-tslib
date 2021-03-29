@@ -10,7 +10,7 @@ from .rank import *
 from .regime import *
 from .reindex import *
 from .ts import *
-
+from .stats import *
 
 import logging
 

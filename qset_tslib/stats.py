@@ -41,8 +41,19 @@ def calc_basic_stats(returns, periods=365):
 
     net_profit = np.sum(returns)
 
-    skewness = scipy.stats.skew(returns)[0]
-    kurtosis = scipy.stats.kurtosis(returns)[0]
+    skewness = scipy.stats.skew(returns)
+    try:
+        skewness = skewness[0]
+    except:
+        # case of [skewness]
+        pass
+
+    kurtosis = scipy.stats.kurtosis(returns)
+    try:
+        kurtosis = kurtosis[0]
+    except:
+        # case of [kurtosis]
+        pass
     return {
         "sharpe": sharpe,
         "sortino": sortino,
