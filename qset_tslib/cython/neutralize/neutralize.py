@@ -1,6 +1,9 @@
 import pandas as pd
 
-from qset_tslib.cython.neutralize.cneutralize import neutralize as _neutralize
+try:
+    from qset_tslib.cython.neutralize.cneutralize import neutralize as _neutralize
+except ImportError:
+    pass
 
 
 def cs_neutralize(df, group=None, norm_std=False):
