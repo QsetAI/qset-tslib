@@ -5,7 +5,6 @@ import math
 
 import qset_tslib as tslib
 from datetime import datetime, timedelta
-from utils_ak.time import *
 
 
 def _get_timeframe(td):
@@ -167,11 +166,20 @@ def calc_stats(returns, turnover=None, booksize=1.0, days_in_a_year=365):
 
 
 def test():
+    def datetime_range(beg, period=None, end=None, n=None):
+        if end:
+            while beg < end:
+                yield beg
+                beg = min(beg + period, end)
+        elif n:
+            for i in range(n):
+                yield beg + i * period
+        else:
+            raise Exception("end or n not specified")
+
     df = pd.DataFrame(
         np.random.uniform(-0.01, 0.012, 100),
-        index=datetime_range(
-            cast_datetime("2020.01.01"), period=timedelta(days=1), n=100
-        ),
+        index=datetime_range(datetime(2020, 1, 20), period=timedelta(days=1), n=100),
     )
     print(df)
     from pprint import pprint
