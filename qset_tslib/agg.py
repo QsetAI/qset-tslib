@@ -36,13 +36,13 @@ def _cast_freq(td, keys=None):
     return res
 
 
-def _cast_dateoffset(td_obj):
+def _cast_dateoffset(td):
     # https://pandas.pydata.org/pandas-docs/stable/timeseries.html
-    return _cast_freq(td_obj, keys=["D", "H", "T", "S"])
+    return _cast_freq(td, keys=["D", "H", "T", "S"])
 
 
-def agg_by_frequency(df, freq_obj, func="first", closed="left", backfill=False):
-    grouper = pd.Grouper(freq=_cast_dateoffset(freq_obj), closed=closed)
+def agg_by_frequency(df, td, func="first", closed="left", backfill=False):
+    grouper = pd.Grouper(freq=_cast_dateoffset(td), closed=closed)
     res = df.groupby(grouper).agg(func)
 
     if backfill:
@@ -57,7 +57,7 @@ def test_agg_by_frequency():
         columns=["foo"],
         index=[datetime(2020, 1, 1) + i * timedelta(hours=4) for i in range(100)],
     )
-    print(agg_by_frequency(df, "1d", func="first"))
+    print(agg_by_frequency(df, timedelta(days=1), func="first"))
 
 
 if __name__ == "__main__":
